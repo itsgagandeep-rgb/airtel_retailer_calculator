@@ -16,7 +16,27 @@ header{background:#d32f2f;color:#fff;padding:14px;text-align:center;font-weight:
 .card-header{background:#d32f2f;color:#fff;padding:10px 12px;font-weight:700}
 .card-body{padding:12px}
 .row{display:grid;grid-template-columns:50% 25% 25%;gap:10px;align-items:center;padding:6px 0}
-input{width:100%;padding:8px;border-radius:8px;border:1px solid #ccc;text-align:right}
+
+input{
+  width:100%;
+  padding:8px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  text-align:right;
+}
+
+.fake-input{
+  width:100%;
+  padding:8px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  text-align:right;
+  background:#f9f9f9;
+  font-size:14px;
+  font-weight:600;
+  color:#333;
+}
+
 .result{text-align:right;font-weight:700;color:#d32f2f}
 .summary{font-size:16px;font-weight:800}
 .controls{display:flex;gap:10px;justify-content:center;margin-top:10px}
@@ -63,7 +83,7 @@ button{border:none;border-radius:10px;padding:10px 16px;font-weight:700;color:#f
 
 <div class="row">
   <div>MNP OTF (Auto)</div>
-  <div class="result" id="mnpOtfCount">0</div>
+  <div class="fake-input" id="mnpOtfCount">0</div>
   <div class="result" id="mnpOtfVal">₹0.00</div>
 </div>
 
@@ -192,7 +212,10 @@ const total=[
 document.getElementById('total').innerText=f(total);
 }
 
-function resetAll(){document.querySelectorAll('input').forEach(i=>i.value='');calc()}
+function resetAll(){
+  document.querySelectorAll('input').forEach(i=>i.value='');
+  calc();
+}
 
 function buildSummary(){
 return `AIRTEL RETAILER EARNING SUMMARY
