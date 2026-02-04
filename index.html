@@ -6,8 +6,7 @@
 <title>Airtel Retailer Earning Calculator</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet"
- href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
 body{font-family:Poppins;background:#f5f6fa;margin:0}
@@ -116,7 +115,7 @@ button{border:none;border-radius:10px;padding:10px 16px;font-weight:700;color:#f
 <div class="card-header">Upgrades & Others</div>
 <div class="card-body">
 <div class="row">
-  <div>₹299–₹349 Upgrade Count</div>
+  <div>Recharge Upgrade to ≥399</div>
   <input id="upgrade" type="number" oninput="calc()">
   <div class="result" id="upgradeVal">₹0.00</div>
 </div>
@@ -160,60 +159,60 @@ const mnpRate=c=>c<=6?50:c<=29?90:110;
 function calc(){
 const tertiary=v('tertiary');
 const lapu=tertiary/30;
-lapuEl('lapu',lapu);
-lapuEl('recharge',tertiary*0.03);
+set('lapu',lapu);
+set('recharge',tertiary*0.03);
 
 const mnpCount=v('mnpCount');
 document.getElementById('mnpCountDisp').innerText=mnpCount;
 
-const mnpInc=mnpCount*mnpRate(mnpCount);
-lapuEl('mnpIncentive',mnpInc);
-
+set('mnpIncentive',mnpCount*mnpRate(mnpCount));
 document.getElementById('mnpOtfCount').innerText=mnpCount;
-lapuEl('mnpOtfVal',mnpCount*235);
+set('mnpOtfVal',mnpCount*235);
 
-lapuEl('mnpDaysVal',lapu*v('mnpDays')*0.014);
-lapuEl('nonMnpVal',v('nonMnp')*135);
-lapuEl('wifiDaysVal',lapu*v('wifiDays')*0.015);
-lapuEl('wifiLeadsVal',v('wifiLeads')*150);
-lapuEl('simSwapVal',v('simSwap')*10);
-lapuEl('upgradeVal',v('upgrade')*349*0.03);
-lapuEl('starVal',v('star')*299*0.005);
-lapuEl('sbaVal',v('sba')*45);
+set('mnpDaysVal',lapu*v('mnpDays')*0.014);
+set('nonMnpVal',v('nonMnp')*135);
+set('wifiDaysVal',lapu*v('wifiDays')*0.015);
+set('wifiLeadsVal',v('wifiLeads')*150);
+set('simSwapVal',v('simSwap')*10);
+
+/* UPDATED FORMULA */
+set('upgradeVal',v('upgrade')*399*0.03);
+
+set('starVal',v('star')*299*0.005);
+set('sbaVal',v('sba')*45);
 
 const total=[...document.querySelectorAll('.result')]
-  .map(e=>Number(e.innerText.replace(/[₹,]/g,''))||0)
-  .reduce((a,b)=>a+b,0);
+.map(e=>Number(e.innerText.replace(/[₹,]/g,''))||0)
+.reduce((a,b)=>a+b,0);
 
-lapuEl('total',total);
+set('total',total);
 }
 
-function lapuEl(id,val){document.getElementById(id).innerText=f(val)}
-
+function set(id,val){document.getElementById(id).innerText=f(val)}
 function resetAll(){document.querySelectorAll('input').forEach(i=>i.value='');calc()}
 
 function buildSummary(){
 return `AIRTEL RETAILER EARNING SUMMARY
 ----------------------------------
 Tertiary : ${f(v('tertiary'))}
-LAPU : ${document.getElementById('lapu').innerText}
-Recharge Margin : ${document.getElementById('recharge').innerText}
+LAPU : ${lapu.innerText}
+Recharge Margin : ${recharge.innerText}
 
 MNP Count : ${v('mnpCount')}
-MNP Incentive : ${document.getElementById('mnpIncentive').innerText}
-MNP OTF : ${document.getElementById('mnpOtfVal').innerText}
-MNP Days : ${document.getElementById('mnpDaysVal').innerText}
-Non-MNP : ${document.getElementById('nonMnpVal').innerText}
+MNP Incentive : ${mnpIncentive.innerText}
+MNP OTF : ${mnpOtfVal.innerText}
+MNP Days : ${mnpDaysVal.innerText}
+Non-MNP : ${nonMnpVal.innerText}
 
-WiFi Days : ${document.getElementById('wifiDaysVal').innerText}
-WiFi Leads : ${document.getElementById('wifiLeadsVal').innerText}
-SIM Swap : ${document.getElementById('simSwapVal').innerText}
+WiFi Days : ${wifiDaysVal.innerText}
+WiFi Leads : ${wifiLeadsVal.innerText}
+SIM Swap : ${simSwapVal.innerText}
 
-Upgrade 299-349 : ${document.getElementById('upgradeVal').innerText}
-STAR Recharge : ${document.getElementById('starVal').innerText}
-SBA Opening : ${document.getElementById('sbaVal').innerText}
+Recharge Upgrade ≥399 : ${upgradeVal.innerText}
+STAR Recharge : ${starVal.innerText}
+SBA Opening : ${sbaVal.innerText}
 
-TOTAL INCENTIVE : ${document.getElementById('total').innerText}`;
+TOTAL INCENTIVE : ${total.innerText}`;
 }
 
 function shareTelegram(){
