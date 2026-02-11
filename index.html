@@ -16,27 +16,8 @@ header{background:#d32f2f;color:#fff;padding:14px;text-align:center;font-weight:
 .card-header{background:#d32f2f;color:#fff;padding:10px 12px;font-weight:700}
 .card-body{padding:12px}
 .row{display:grid;grid-template-columns:50% 25% 25%;gap:10px;align-items:center;padding:6px 0}
-
-input{
-  width:100%;
-  padding:8px;
-  border-radius:8px;
-  border:1px solid #ccc;
-  text-align:right;
-}
-
-.fake-input{
-  width:100%;
-  padding:8px;
-  border-radius:8px;
-  border:1px solid #ccc;
-  text-align:right;
-  background:#f9f9f9;
-  font-size:14px;
-  font-weight:600;
-  color:#333;
-}
-
+input{width:100%;padding:8px;border-radius:8px;border:1px solid #ccc;text-align:right}
+.fake-input{width:100%;padding:8px;border-radius:8px;border:1px solid #ccc;text-align:right;background:#f9f9f9;font-size:14px;font-weight:600;color:#333}
 .result{text-align:right;font-weight:700;color:#d32f2f}
 .summary{font-size:16px;font-weight:800}
 .controls{display:flex;gap:10px;justify-content:center;margin-top:10px}
@@ -186,7 +167,6 @@ const lapu=tertiary/30;
 document.getElementById('recharge').innerText=f(tertiary*0.03);
 
 const mnpCount=v('mnpCount');
-
 const mnpInc=mnpCount*mnpRate(mnpCount);
 document.getElementById('mnpIncentive').innerText=f(mnpInc);
 
@@ -239,8 +219,19 @@ TOTAL INCENTIVE : ${document.getElementById('total').innerText}`;
 }
 
 function shareTelegram(){
-window.open("https://t.me/share/url?text="+encodeURIComponent(buildSummary()),"_blank");
+  const text = encodeURIComponent(buildSummary());
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if(isIOS){
+      window.location.href = "tg://msg?text=" + text;
+      setTimeout(function(){
+          window.location.href = "https://t.me/share/url?text=" + text;
+      }, 1500);
+  } else {
+      window.open("https://t.me/share/url?text=" + text, "_blank");
+  }
 }
+
 function shareWhatsApp(){
 window.open("https://wa.me/?text="+encodeURIComponent(buildSummary()),"_blank");
 }
@@ -249,4 +240,3 @@ calc();
 </script>
 </body>
 </html>
-
